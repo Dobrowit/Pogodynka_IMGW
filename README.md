@@ -13,4 +13,8 @@ Aby dostosować skrypt do własnych potrzeb:
 
 ![obraz](https://github.com/user-attachments/assets/e984a3a2-8a33-4aee-b6da-afec2e78a3b9)
 
+W repozytorium umieszczono dwa warianty skryptu:
+  - AIO - wszystko w jednym
+  - rozdzielony na html, css i js
+
 DEMO - https://leba.eu/pogoda.html
