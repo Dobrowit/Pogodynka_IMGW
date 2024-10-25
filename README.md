@@ -2,6 +2,7 @@
 Pogoda IMGW na stronie internetowej z otwartych danych.
 
 Dane pochodzą z otwartego źródła - https://danepubliczne.imgw.pl
+
 API JSON - https://danepubliczne.imgw.pl/api/data/synop
 
 Aby dostosować skrypt do własnych potrzeb:
