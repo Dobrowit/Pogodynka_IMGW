@@ -208,12 +208,18 @@
                 `Ostatnia aktualizacja: ${formatDateTime(now)}`;
 
             // Tworzenie daty pomiaru
-            const [year, month, day] = imgwStation.data_pomiaru.split('-');
-            const [hour, minute] = imgwStation.godzina_pomiaru.split(':');
-            measurementDateTime = new Date(year, month - 1, day, hour, minute);
+			const [year, month, day] = imgwStation.data_pomiaru.split('-').map(Number);
+			const hour = parseInt(imgwStation.godzina_pomiaru, 10);
+			const minute = 0; // Dodanie 00 jako minut
+			measurementDateTime = new Date(year, month - 1, day, hour, minute);
 
-            document.getElementById('measurementTime').textContent = 
-                `Czas pomiaru: ${imgwStation.data_pomiaru} ${imgwStation.godzina_pomiaru}`;
+			if (isNaN(measurementDateTime.getTime())) {
+				showError('Błąd przetwarzania daty pomiaru.');
+				return;
+			}
+
+			document.getElementById('measurementTime').textContent = 
+				`Czas pomiaru: ${imgwStation.data_pomiaru} ${imgwStation.godzina_pomiaru}:00`;
 
             // Zatrzymaj poprzedni interval jeśli istnieje
             if (ageUpdateInterval) {
