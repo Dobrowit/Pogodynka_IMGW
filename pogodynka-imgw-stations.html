@@ -109,7 +109,7 @@
                     const link = document.createElement('a');
                     link.className = 'station-link';
                     link.href = `pogodynka-imgw-aio.html?station_id=${station.id_stacji}`;
-                    link.textContent = `${station.id_stacji} - ${station.stacja}`;
+                    link.textContent = `${station.stacja} (id: ${station.id_stacji})`;
                 
                     listItem.appendChild(link);
                     stationListElement.appendChild(listItem);
