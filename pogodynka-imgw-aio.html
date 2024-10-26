@@ -148,14 +148,11 @@
     </div>
 
     <script>
-        const STATION_ID = "12120";
-        const REFRESH_INTERVAL = 60000;
+	const DEFAULT_STATION_ID = "12120";
+	const REFRESH_INTERVAL = 60000;
         let isRefreshing = false;
         let measurementDateTime = null;
         let ageUpdateInterval = null;
-
-	const DEFAULT_STATION_ID = "12120";
-	const STATION_ID = getParameterByName("station_id") || DEFAULT_STATION_ID;
 
 	function getParameterByName(name) {
 	    const url = new URL(window.location.href);
@@ -298,6 +295,8 @@
                 fetchWeatherData();
             }
         }
+
+	const STATION_ID = getParameterByName("station_id") || DEFAULT_STATION_ID;
 
         // Cleaning up intervals when leaving the page
         window.addEventListener('beforeunload', () => {
