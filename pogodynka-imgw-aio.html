@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacja Pogodowa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .title {
+            margin: 0;
+            color: #1a1a1a;
+        }
+        .refresh-button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .refresh-button:hover {
+            background: #0056b3;
+        }
+        .refresh-button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        .weather-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            transition: transform 0.2s ease;
+        }
+        .weather-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .weather-label {
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .weather-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+        .time-info {
+            margin-top: 15px;
+            text-align: right;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .time-info div {
+            margin-bottom: 5px;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title"><span id="nazwa_stacji"></span></h1>
+            <button class="refresh-button" onclick="handleRefreshClick()" id="refreshButton">Odśwież</button>
+        </div>
+        <div id="error" class="error" style="display: none;"></div>
+        <div id="loading" class="loading" style="display: none;">
+            <div>Ładowanie danych...</div>
+            <div>Proszę czekać</div>
+        </div>
+        <div id="weatherData" class="weather-grid" style="display: none;">
+            <div class="weather-item">
+                <div class="weather-label">Temperatura</div>
+                <div class="weather-value" id="temperatura">-</div>
+            </div>
+            <div class="weather-item">
+                <div class="weather-label">Wilgotność</div>
+                <div class="weather-value" id="wilgotnosc">-</div>
+            </div>
+            <div class="weather-item">
+                <div class="weather-label">Ciśnienie</div>
+                <div class="weather-value" id="cisnienie">-</div>
+            </div>
+            <div class="weather-item">
+                <div class="weather-label">Prędkość wiatru</div>
+                <div class="weather-value" id="predkosc_wiatru">-</div>
+            </div>
+            <div class="weather-item">
+                <div class="weather-label">Kierunek wiatru</div>
+                <div class="weather-value" id="kierunek_wiatru">-</div>
+            </div>
+            <div class="weather-item">
+                <div class="weather-label">Suma opadu</div>
+                <div class="weather-value" id="suma_opadu">-</div>
+            </div>
+        </div>
+        <div class="time-info">
+            <div id="lastUpdate"></div>
+            <div id="measurementTime"></div>
+            <div id="measurementAge"></div>
+        </div>
+    </div>
+
+    <script>
+        const DEFAULT_STATION_ID = "12120";
+        const REFRESH_INTERVAL = 60000;
+        let isRefreshing = false;
+        let measurementDateTime = null;
+        let ageUpdateInterval = null;
+
+        function getParameterByName(name) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(name);
+	}
+
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('weatherData').style.display = 'none';
+            document.getElementById('error').style.display = 'none';
+        }
+
+        function showError(message) {
+            document.getElementById('error').textContent = message;
+            document.getElementById('error').style.display = 'block';
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('weatherData').style.display = 'none';
+        }
+
+        function showWeatherData() {
+            document.getElementById('weatherData').style.display = 'grid';
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'none';
+        }
+
+        function formatDateTime(date) {
+            return date.toLocaleString('pl-PL', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+        }
+
+        function calculateAge(measurementDate) {
+            const now = new Date();
+            const diff = now - measurementDate;
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            return `${hours} godz. ${minutes} min. ${seconds} sek.`;
+        }
+
+        function updateMeasurementAge() {
+            if (measurementDateTime) {
+                const ageElement = document.getElementById('measurementAge');
+                ageElement.textContent = `Wiek pomiaru: ${calculateAge(measurementDateTime)}`;
+            }
+        }
+
+        function updateLastUpdate(imgwStation) {
+            const now = new Date();
+            document.getElementById('lastUpdate').textContent = 
+                `Ostatnia aktualizacja: ${formatDateTime(now)}`;
+
+            // Tworzenie daty pomiaru
+			const [year, month, day] = imgwStation.data_pomiaru.split('-').map(Number);
+			const hour = parseInt(imgwStation.godzina_pomiaru, 10);
+			const minute = 0; // Dodanie 00 jako minut
+			measurementDateTime = new Date(year, month - 1, day, hour, minute);
+
+			if (isNaN(measurementDateTime.getTime())) {
+				showError('Błąd przetwarzania daty pomiaru.');
+				return;
+			}
+
+			document.getElementById('measurementTime').textContent = 
+				`Czas pomiaru: ${imgwStation.data_pomiaru} ${imgwStation.godzina_pomiaru}:00`;
+
+            // Zatrzymaj poprzedni interval jeśli istnieje
+            if (ageUpdateInterval) {
+                clearInterval(ageUpdateInterval);
+            }
+
+            // Rozpocznij nowe odliczanie wieku pomiaru
+            updateMeasurementAge();
+            ageUpdateInterval = setInterval(updateMeasurementAge, 1000);
+        }
+
+        function updateWeatherValues(imgwStation) {
+            // Aktualizacja nazwy stacji w nagłówku
+            document.getElementById('nazwa_stacji').textContent = imgwStation.stacja;
+            
+            const weatherValues = {
+                'temperatura': `${imgwStation.temperatura}°C`,
+                'wilgotnosc': `${imgwStation.wilgotnosc_wzgledna}%`,
+                'cisnienie': `${imgwStation.cisnienie} hPa`,
+                'predkosc_wiatru': `${imgwStation.predkosc_wiatru} m/s`,
+                'kierunek_wiatru': `${imgwStation.kierunek_wiatru}°`,
+                'suma_opadu': `${imgwStation.suma_opadu} mm`
+            };
+
+            Object.entries(weatherValues).forEach(([id, value]) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = value;
+                }
+            });
+        }
+
+        async function fetchWeatherData() {
+            if (isRefreshing) return;
+            
+            isRefreshing = true;
+            const refreshButton = document.getElementById('refreshButton');
+            refreshButton.disabled = true;
+            
+            showLoading();
+            
+            try {
+                const response = await fetch('https://danepubliczne.imgw.pl/api/data/synop');
+                if (!response.ok) {
+                    throw new Error('Problem z połączeniem z serwerem');
+                }
+                
+                const data = await response.json();
+                const imgwStation = data.find(station => station.id_stacji === STATION_ID);
+                
+                if (!imgwStation) {
+                    throw new Error('Nie znaleziono danych dla stacji o id: ' + STATION_ID);
+                }
+
+                updateWeatherValues(imgwStation);
+                updateLastUpdate(imgwStation);
+                showWeatherData();
+            } catch (error) {
+                showError('Błąd podczas pobierania danych: ' + error.message);
+            } finally {
+                isRefreshing = false;
+                refreshButton.disabled = false;
+            }
+        }
+
+        function handleRefreshClick() {
+            if (!isRefreshing) {
+                fetchWeatherData();
+            }
+        }
+
+        const STATION_ID = getParameterByName("station_id") || DEFAULT_STATION_ID;
+
+        // Cleaning up intervals when leaving the page
+        window.addEventListener('beforeunload', () => {
+            if (ageUpdateInterval) {
+                clearInterval(ageUpdateInterval);
+            }
+        });
+
+        // Inicjalizacja po załadowaniu strony
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchWeatherData();
+            setInterval(fetchWeatherData, REFRESH_INTERVAL);
+        });
+    </script>
+</body>
+</html>
