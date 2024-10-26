@@ -41,12 +41,17 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .station-link {
+            display: block;
             text-decoration: none;
-            color: #007bff;
-            transition: color 0.3s ease;
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            transition: background-color 0.3s ease;
         }
         .station-link:hover {
-            color: #0056b3;
+            background: #0056b3;
         }
         .loading {
             text-align: center;
@@ -100,13 +105,12 @@
                 // Dodaj stacje do listy
                 data.forEach(station => {
                     const listItem = document.createElement('li');
-                    listItem.className = 'station-item';
-                    
+                
                     const link = document.createElement('a');
                     link.className = 'station-link';
                     link.href = `pogodynka-imgw-aio.html?station_id=${station.id_stacji}`;
                     link.textContent = `${station.id_stacji} - ${station.stacja}`;
-                    
+                
                     listItem.appendChild(link);
                     stationListElement.appendChild(listItem);
                 });
