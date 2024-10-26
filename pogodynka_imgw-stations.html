@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista stacji meteorologicznych</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #1a1a1a;
+        }
+        .station-list {
+            list-style: none;
+            padding: 0;
+        }
+        .station-item {
+            margin: 10px 0;
+        }
+        .station-link {
+            text-decoration: none;
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+        .station-link:hover {
+            color: #0056b3;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+        }
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista stacji meteorologicznych</h1>
+        <div id="error" class="error" style="display: none;"></div>
+        <div id="loading" class="loading" style="display: none;">Ładowanie danych...</div>
+        <ul id="stationList" class="station-list"></ul>
+    </div>
+
+    <script>
+        async function fetchStations() {
+            const stationListElement = document.getElementById('stationList');
+            const loadingElement = document.getElementById('loading');
+            const errorElement = document.getElementById('error');
+            
+            // Wyświetl komunikat ładowania
+            loadingElement.style.display = 'block';
+            stationListElement.style.display = 'none';
+            errorElement.style.display = 'none';
+            
+            try {
+                const response = await fetch('https://danepubliczne.imgw.pl/api/data/synop');
+                if (!response.ok) {
+                    throw new Error('Problem z połączeniem z serwerem');
+                }
+                
+                const data = await response.json();
+                
+                // Wyczyść listę stacji
+                stationListElement.innerHTML = '';
+                
+                // Dodaj stacje do listy
+                data.forEach(station => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'station-item';
+                    
+                    const link = document.createElement('a');
+                    link.className = 'station-link';
+                    link.href = `pogodynka-imgw-aio.html?station_id=${station.id_stacji}`;
+                    link.textContent = `${station.id_stacji} - ${station.stacja}`;
+                    
+                    listItem.appendChild(link);
+                    stationListElement.appendChild(listItem);
+                });
+                
+                // Pokaż listę stacji
+                loadingElement.style.display = 'none';
+                stationListElement.style.display = 'block';
+            } catch (error) {
+                errorElement.textContent = 'Błąd podczas pobierania danych: ' + error.message;
+                errorElement.style.display = 'block';
+                loadingElement.style.display = 'none';
+            }
+        }
+
+        // Inicjalizacja po załadowaniu strony
+        document.addEventListener('DOMContentLoaded', fetchStations);
+    </script>
+</body>
+</html>
