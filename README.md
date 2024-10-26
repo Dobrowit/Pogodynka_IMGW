@@ -16,4 +16,4 @@ W repozytorium umieszczono dwa warianty skryptu:
   - AIO - wszystko w jednym
   - rozdzielony na html, css i js
 
-DEMO - https://leba.eu/pogoda.html
+DEMO - https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-aio.html
