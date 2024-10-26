@@ -3,45 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stacja Pogodowa Łeba</title>
+    <title>Stacja pogodowa IMGW</title>
     <link rel="stylesheet" href="pogodynka-imgw.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1 class="title">Stacja meteorologiczna Łeba</h1>
-            <button class="refresh-button" onclick="fetchWeatherData()">Odśwież</button>
-        </div>
-        <div id="error" class="error" style="display: none;"></div>
-        <div id="loading" class="loading" style="display: none;">Ładowanie danych...</div>
-        <div id="weatherData" class="weather-grid" style="display: none;">
-            <div class="weather-item">
-                <div class="weather-label">Temperatura</div>
-                <div class="weather-value" id="temperatura">-</div>
-            </div>
-            <div class="weather-item">
-                <div class="weather-label">Wilgotność</div>
-                <div class="weather-value" id="wilgotnosc">-</div>
-            </div>
-            <div class="weather-item">
-                <div class="weather-label">Ciśnienie</div>
-                <div class="weather-value" id="cisnienie">-</div>
-            </div>
-            <div class="weather-item">
-                <div class="weather-label">Prędkość wiatru</div>
-                <div class="weather-value" id="predkosc_wiatru">-</div>
-            </div>
-            <div class="weather-item">
-                <div class="weather-label">Kierunek wiatru</div>
-                <div class="weather-value" id="kierunek_wiatru">-</div>
-            </div>
-            <div class="weather-item">
-                <div class="weather-label">Suma opadu</div>
-                <div class="weather-value" id="suma_opadu">-</div>
-            </div>
-        </div>
-        <div class="last-update" id="lastUpdate"></div>
+    <div id="warningMessage" class="data-section"></div>
+    <div id="synopData" class="data-section">
+        <p>Ładowanie danych...</p>
     </div>
+    <div id="hydroData" class="data-section"></div>
+    <div id="meteoData" class="data-section"></div>
     <script src="pogodynka-imgw.js"></script> 
 </body>
 </html>
