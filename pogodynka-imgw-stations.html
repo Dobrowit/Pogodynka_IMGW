@@ -64,8 +64,15 @@
         <div id="loading" class="loading" style="display: none;">Ładowanie danych...</div>
         
         <div class="select-container">
-            <label for="stationSelect">Wybierz stację meteorologiczną:</label>
+            <label for="stationSelect">Wybierz stację synoptyczną:</label>
             <select id="stationSelect">
+                <option value="">Wybierz stację...</option>
+            </select>
+        </div>
+
+        <div class="select-container">
+            <label for="metStationSelect">Wybierz stację meteorologiczną:</label>
+            <select id="metStationSelect">
                 <option value="">Wybierz stację...</option>
             </select>
         </div>
@@ -94,8 +101,15 @@
             errorElement.style.display = 'none';
             
             try {
+                // Pobranie danych stacji synoptycznych
+                const responseSyn = await fetch('https://danepubliczne.imgw.pl/api/data/synop');
+                if (!responseSyn.ok) {
+                    throw new Error('Problem z połączeniem z serwerem dla stacji meteorologicznych');
+                }
+                const synData = await responseSyn.json();
+
                 // Pobranie danych stacji meteorologicznych
-                const responseMet = await fetch('https://danepubliczne.imgw.pl/api/data/synop');
+                const responseMet = await fetch('https://danepubliczne.imgw.pl/api/data/meteo');
                 if (!responseMet.ok) {
                     throw new Error('Problem z połączeniem z serwerem dla stacji meteorologicznych');
                 }
@@ -109,14 +123,23 @@
                 const hydroData = await responseHydro.json();
         
                 // Sortowanie danych alfabetycznie
-                metData.sort((a, b) => a.stacja.localeCompare(b.stacja));
+                synData.sort((a, b) => a.stacja.localeCompare(b.stacja));
+                metData.sort((a, b) => a.nazwa_stacji.localeCompare(b.nazwa_stacji));
                 hydroData.sort((a, b) => a.stacja.localeCompare(b.stacja));
-        
+
                 // Dodanie stacji meteorologicznych do menu rozwijanego
-                metData.forEach(station => {
+                synData.forEach(station => {
                     const option = document.createElement('option');
                     option.value = station.id_stacji;
                     option.textContent = `${station.stacja} (id: ${station.id_stacji})`;
+                    stationSelectElement.appendChild(option);
+                });
+                
+                // Dodanie stacji meteorologicznych do menu rozwijanego
+                metData.forEach(station => {
+                    const option = document.createElement('option');
+                    option.value = station.kod_stacji;
+                    option.textContent = `${station.nazwa_stacji} (id: ${station.kod_stacji})`;
                     stationSelectElement.appendChild(option);
                 });
         
@@ -141,10 +164,11 @@
 
         function showStation() {
             const stationId = document.getElementById('stationSelect').value;
+            const metStationId = document.getElementById('metStationSelect').value;
             const hydroStationId = document.getElementById('hydroStationSelect').value;
 
             if (stationId || hydroStationId) {
-                window.location.href = `pogodynka-imgw.html?synopId=${stationId}&hydroId=${hydroStationId}`;
+                window.location.href = `pogodynka-imgw.html?synopId=${stationId}&meteoId=${metStationId}&hydroId=${hydroStationId}`;
             } else {
                 alert('Proszę wybrać przynajmniej jedną stację.');
             }
