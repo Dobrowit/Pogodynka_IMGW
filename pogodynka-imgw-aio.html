@@ -148,15 +148,15 @@
     </div>
 
     <script>
-	const DEFAULT_STATION_ID = "12120";
-	const REFRESH_INTERVAL = 60000;
+        const DEFAULT_STATION_ID = "12120";
+        const REFRESH_INTERVAL = 60000;
         let isRefreshing = false;
         let measurementDateTime = null;
         let ageUpdateInterval = null;
 
-	function getParameterByName(name) {
-	    const url = new URL(window.location.href);
-	    return url.searchParams.get(name);
+        function getParameterByName(name) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(name);
 	}
 
         function showLoading() {
@@ -296,7 +296,7 @@
             }
         }
 
-	const STATION_ID = getParameterByName("station_id") || DEFAULT_STATION_ID;
+        const STATION_ID = getParameterByName("station_id") || DEFAULT_STATION_ID;
 
         // Cleaning up intervals when leaving the page
         window.addEventListener('beforeunload', () => {
