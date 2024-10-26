@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista stacji meteorologicznych IMGW</title>
+    <title>Lista stacji IMGW</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,34 +23,24 @@
             text-align: center;
             color: #1a1a1a;
         }
-        .station-list {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            list-style: none;
-            padding: 0;
+        .select-container {
+            margin-bottom: 20px;
         }
-        .station-item {
-            background: #f8f9fa;
+        select, button {
+            width: 100%;
             padding: 10px;
+            border: 1px solid #ccc;
             border-radius: 6px;
-            transition: transform 0.2s ease;
+            margin-top: 10px;
+            cursor: pointer;
         }
-        .station-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .station-link {
-            display: block;
-            text-decoration: none;
+        button {
             background: #007bff;
             color: white;
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
+            border: none;
             transition: background-color 0.3s ease;
         }
-        .station-link:hover {
+        button:hover {
             background: #0056b3;
         }
         .loading {
@@ -65,63 +55,94 @@
             border-radius: 4px;
             margin-bottom: 15px;
         }
-        @media (max-width: 600px) {
-            .station-list {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Lista stacji meteorologicznych IMGW</h1>
+        <h1>Lista stacji IMGW</h1>
         <div id="error" class="error" style="display: none;"></div>
         <div id="loading" class="loading" style="display: none;">Ładowanie danych...</div>
-        <ul id="stationList" class="station-list"></ul>
+        
+        <div class="select-container">
+            <label for="stationSelect">Wybierz stację meteorologiczną:</label>
+            <select id="stationSelect">
+                <option value="">Wybierz stację...</option>
+            </select>
+        </div>
+        
+        <div class="select-container">
+            <label for="hydroStationSelect">Wybierz stację hydrologiczną:</label>
+            <select id="hydroStationSelect">
+                <option value="">Wybierz stację...</option>
+            </select>
+        </div>
+        
+        <button onclick="showStation()">Pokaż</button>
     </div>
 
     <script>
         async function fetchStations() {
-            const stationListElement = document.getElementById('stationList');
+            const stationSelectElement = document.getElementById('stationSelect');
+            const hydroStationSelectElement = document.getElementById('hydroStationSelect');
             const loadingElement = document.getElementById('loading');
             const errorElement = document.getElementById('error');
-            
+
             // Wyświetl komunikat ładowania
             loadingElement.style.display = 'block';
-            stationListElement.style.display = 'none';
+            stationSelectElement.style.display = 'none';
+            hydroStationSelectElement.style.display = 'none';
             errorElement.style.display = 'none';
             
             try {
-                const response = await fetch('https://danepubliczne.imgw.pl/api/data/synop');
-                if (!response.ok) {
-                    throw new Error('Problem z połączeniem z serwerem');
+                // Pobranie danych stacji meteorologicznych
+                const responseMet = await fetch('https://danepubliczne.imgw.pl/api/data/synop');
+                if (!responseMet.ok) {
+                    throw new Error('Problem z połączeniem z serwerem dla stacji meteorologicznych');
                 }
-                
-                const data = await response.json();
-                
-                // Wyczyść listę stacji
-                stationListElement.innerHTML = '';
-                
-                // Dodaj stacje do listy
-                data.forEach(station => {
-                    const listItem = document.createElement('li');
-                
-                    const link = document.createElement('a');
-                    link.className = 'station-link';
-                    link.href = `pogodynka-imgw-aio.html?station_id=${station.id_stacji}`;
-                    link.textContent = `${station.stacja} (id: ${station.id_stacji})`;
-                
-                    listItem.appendChild(link);
-                    stationListElement.appendChild(listItem);
+                const metData = await responseMet.json();
+
+                // Pobranie danych stacji hydrologicznych
+                const responseHydro = await fetch('https://danepubliczne.imgw.pl/api/data/hydro');
+                if (!responseHydro.ok) {
+                    throw new Error('Problem z połączeniem z serwerem dla stacji hydrologicznych');
+                }
+                const hydroData = await responseHydro.json();
+
+                // Dodanie stacji meteorologicznych do menu rozwijanego
+                metData.forEach(station => {
+                    const option = document.createElement('option');
+                    option.value = station.id_stacji;
+                    option.textContent = `${station.stacja} (id: ${station.id_stacji})`;
+                    stationSelectElement.appendChild(option);
                 });
-                
-                // Pokaż listę stacji
+
+                // Dodanie stacji hydrologicznych do menu rozwijanego
+                hydroData.forEach(hydroStation => {
+                    const option = document.createElement('option');
+                    option.value = hydroStation.id_stacji;
+                    option.textContent = `${hydroStation.stacja} - ${hydroStation.rzeka} (id: ${hydroStation.id_stacji})`;
+                    hydroStationSelectElement.appendChild(option);
+                });
+
+                // Pokaż listy rozwijane
                 loadingElement.style.display = 'none';
-                stationListElement.style.display = 'grid';
+                stationSelectElement.style.display = 'block';
+                hydroStationSelectElement.style.display = 'block';
             } catch (error) {
                 errorElement.textContent = 'Błąd podczas pobierania danych: ' + error.message;
                 errorElement.style.display = 'block';
                 loadingElement.style.display = 'none';
+            }
+        }
+
+        function showStation() {
+            const stationId = document.getElementById('stationSelect').value;
+            const hydroStationId = document.getElementById('hydroStationSelect').value;
+
+            if (stationId || hydroStationId) {
+                window.location.href = `pogodynka-imgw-aio.html?station_id=${stationId}&hydrostation_id=${hydroStationId}`;
+            } else {
+                alert('Proszę wybrać przynajmniej jedną stację.');
             }
         }
 
