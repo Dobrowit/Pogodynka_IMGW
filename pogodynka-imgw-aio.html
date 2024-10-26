@@ -140,16 +140,6 @@
                 <div class="weather-value" id="suma_opadu">-</div>
             </div>
         </div>
-        <div id="hydroData" class="weather-grid" style="display: none;">
-            <div class="weather-item">
-                <div class="weather-label">Poziom wody</div>
-                <div class="weather-value" id="poziom_wody">-</div>
-            </div>
-            <div class="weather-item">
-                <div class="weather-label">Temperatura wody</div>
-                <div class="weather-value" id="temperatura_wody">-</div>
-            </div>
-        </div>
         <div class="time-info">
             <div id="lastUpdate"></div>
             <div id="measurementTime"></div>
@@ -159,7 +149,6 @@
 
     <script>
         const DEFAULT_STATION_ID = "12120";
-        const DEFAULT_HYDROSTATION_ID = "12011"; // Przykładowy ID hydrostacji
         const REFRESH_INTERVAL = 60000;
         let isRefreshing = false;
         let measurementDateTime = null;
@@ -173,7 +162,6 @@
         function showLoading() {
             document.getElementById('loading').style.display = 'block';
             document.getElementById('weatherData').style.display = 'none';
-            document.getElementById('hydroData').style.display = 'none';
             document.getElementById('error').style.display = 'none';
         }
 
@@ -182,17 +170,10 @@
             document.getElementById('error').style.display = 'block';
             document.getElementById('loading').style.display = 'none';
             document.getElementById('weatherData').style.display = 'none';
-            document.getElementById('hydroData').style.display = 'none';
         }
 
         function showWeatherData() {
             document.getElementById('weatherData').style.display = 'grid';
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('error').style.display = 'none';
-        }
-
-        function showHydroData() {
-            document.getElementById('hydroData').style.display = 'grid';
             document.getElementById('loading').style.display = 'none';
             document.getElementById('error').style.display = 'none';
         }
@@ -234,48 +215,46 @@
             // Tworzenie daty pomiaru
 			const [year, month, day] = imgwStation.data_pomiaru.split('-').map(Number);
 			const hour = parseInt(imgwStation.godzina_pomiaru, 10);
-            measurementDateTime = new Date(year, month - 1, day, hour);
-            updateMeasurementAge();
+			const minute = 0; // Dodanie 00 jako minut
+			measurementDateTime = new Date(year, month - 1, day, hour, minute);
 
+			if (isNaN(measurementDateTime.getTime())) {
+				showError('Błąd przetwarzania daty pomiaru.');
+				return;
+			}
+
+			document.getElementById('measurementTime').textContent = 
+				`Czas pomiaru: ${imgwStation.data_pomiaru} ${imgwStation.godzina_pomiaru}:00`;
+
+            // Zatrzymaj poprzedni interval jeśli istnieje
             if (ageUpdateInterval) {
                 clearInterval(ageUpdateInterval);
             }
+
+            // Rozpocznij nowe odliczanie wieku pomiaru
+            updateMeasurementAge();
             ageUpdateInterval = setInterval(updateMeasurementAge, 1000);
         }
 
         function updateWeatherValues(imgwStation) {
-            document.getElementById('nazwa_stacji').textContent = imgwStation.nazwa_stacji;
-            document.getElementById('temperatura').textContent = `${imgwStation.temperatura} °C`;
-            document.getElementById('wilgotnosc').textContent = `${imgwStation.wilgotnosc} %`;
-            document.getElementById('cisnienie').textContent = `${imgwStation.cisnienie} hPa`;
-            document.getElementById('predkosc_wiatru').textContent = `${imgwStation.predkosc_wiatru} km/h`;
-            document.getElementById('kierunek_wiatru').textContent = `${imgwStation.kierunek_wiatru} °`;
-            document.getElementById('suma_opadu').textContent = `${imgwStation.suma_opadu} mm`;
-        }
+            // Aktualizacja nazwy stacji w nagłówku
+            document.getElementById('nazwa_stacji').textContent = imgwStation.stacja;
+            
+            const weatherValues = {
+                'temperatura': `${imgwStation.temperatura}°C`,
+                'wilgotnosc': `${imgwStation.wilgotnosc_wzgledna}%`,
+                'cisnienie': `${imgwStation.cisnienie} hPa`,
+                'predkosc_wiatru': `${imgwStation.predkosc_wiatru} m/s`,
+                'kierunek_wiatru': `${imgwStation.kierunek_wiatru}°`,
+                'suma_opadu': `${imgwStation.suma_opadu} mm`
+            };
 
-        async function fetchHydroData() {
-            const hydroStationId = getParameterByName("hydrostation_id") || DEFAULT_HYDROSTATION_ID;
-            try {
-                const response = await fetch('https://danepubliczne.imgw.pl/api/data/hydro');
-                if (!response.ok) {
-                    throw new Error('Problem z połączeniem z serwerem (hydro)');
+            Object.entries(weatherValues).forEach(([id, value]) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = value;
                 }
-                
-                const data = await response.json();
-                const hydroStation = data.find(station => station.id_stacji === hydroStationId);
-                
-                if (!hydroStation) {
-                    throw new Error('Nie znaleziono danych dla stacji hydro o id: ' + hydroStationId);
-                }
-
-                // Aktualizacja wartości hydrologicznych
-                document.getElementById('poziom_wody').textContent = `${hydroStation.stan_wody} cm`;
-                document.getElementById('temperatura_wody').textContent = `${hydroStation.temperatura_wody ? hydroStation.temperatura_wody + '°C' : 'Brak danych'}`;
-                
-                showHydroData();
-            } catch (error) {
-                showError('Błąd podczas pobierania danych hydrologicznych: ' + error.message);
-            }
+            });
         }
 
         async function fetchWeatherData() {
@@ -290,7 +269,7 @@
             try {
                 const response = await fetch('https://danepubliczne.imgw.pl/api/data/synop');
                 if (!response.ok) {
-                    throw new Error('Problem z połączeniem z serwerem (pogoda)');
+                    throw new Error('Problem z połączeniem z serwerem');
                 }
                 
                 const data = await response.json();
@@ -303,9 +282,6 @@
                 updateWeatherValues(imgwStation);
                 updateLastUpdate(imgwStation);
                 showWeatherData();
-                
-                // Pobranie danych hydrologicznych po załadowaniu danych pogodowych
-                await fetchHydroData();
             } catch (error) {
                 showError('Błąd podczas pobierania danych: ' + error.message);
             } finally {
@@ -322,12 +298,14 @@
 
         const STATION_ID = getParameterByName("station_id") || DEFAULT_STATION_ID;
 
+        // Cleaning up intervals when leaving the page
         window.addEventListener('beforeunload', () => {
             if (ageUpdateInterval) {
                 clearInterval(ageUpdateInterval);
             }
         });
 
+        // Inicjalizacja po załadowaniu strony
         document.addEventListener('DOMContentLoaded', () => {
             fetchWeatherData();
             setInterval(fetchWeatherData, REFRESH_INTERVAL);
