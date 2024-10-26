@@ -154,6 +154,14 @@
         let measurementDateTime = null;
         let ageUpdateInterval = null;
 
+	const DEFAULT_STATION_ID = "12120";
+	const STATION_ID = getParameterByName("station_id") || DEFAULT_STATION_ID;
+
+	function getParameterByName(name) {
+	    const url = new URL(window.location.href);
+	    return url.searchParams.get(name);
+	}
+
         function showLoading() {
             document.getElementById('loading').style.display = 'block';
             document.getElementById('weatherData').style.display = 'none';
