@@ -12,7 +12,7 @@
             background-color: #f0f2f5;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             background: white;
             padding: 20px;
@@ -24,11 +24,21 @@
             color: #1a1a1a;
         }
         .station-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
             list-style: none;
             padding: 0;
         }
         .station-item {
-            margin: 10px 0;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 6px;
+            transition: transform 0.2s ease;
+        }
+        .station-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .station-link {
             text-decoration: none;
@@ -49,6 +59,11 @@
             padding: 10px;
             border-radius: 4px;
             margin-bottom: 15px;
+        }
+        @media (max-width: 600px) {
+            .station-list {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -98,7 +113,7 @@
                 
                 // Pokaż listę stacji
                 loadingElement.style.display = 'none';
-                stationListElement.style.display = 'block';
+                stationListElement.style.display = 'grid';
             } catch (error) {
                 errorElement.textContent = 'Błąd podczas pobierania danych: ' + error.message;
                 errorElement.style.display = 'block';
