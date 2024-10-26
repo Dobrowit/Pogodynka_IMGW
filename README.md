@@ -18,4 +18,5 @@ W repozytorium umieszczono dwa warianty skryptu:
   - rozdzielony na html, css i js
 
 DEMO - https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-aio.html
+
 LISTA STACJI - https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-stations.html
