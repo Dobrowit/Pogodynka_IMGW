@@ -90,6 +90,7 @@
     <script>
         async function fetchStations() {
             const stationSelectElement = document.getElementById('stationSelect');
+            const metStationSelectElement = document.getElementById('metStationSelect');
             const hydroStationSelectElement = document.getElementById('hydroStationSelect');
             const loadingElement = document.getElementById('loading');
             const errorElement = document.getElementById('error');
@@ -97,6 +98,7 @@
             // Wyświetl komunikat ładowania
             loadingElement.style.display = 'block';
             stationSelectElement.style.display = 'none';
+            metStationSelectElement.style.display = 'none';
             hydroStationSelectElement.style.display = 'none';
             errorElement.style.display = 'none';
             
@@ -140,7 +142,7 @@
                     const option = document.createElement('option');
                     option.value = station.kod_stacji;
                     option.textContent = `${station.nazwa_stacji} (id: ${station.kod_stacji})`;
-                    stationSelectElement.appendChild(option);
+                    metStationSelectElement.appendChild(option);
                 });
         
                 // Dodanie stacji hydrologicznych do menu rozwijanego
@@ -154,6 +156,7 @@
                 // Pokaż listy rozwijane
                 loadingElement.style.display = 'none';
                 stationSelectElement.style.display = 'block';
+                metStationSelectElement.style.display = 'block';
                 hydroStationSelectElement.style.display = 'block';
             } catch (error) {
                 errorElement.textContent = 'Błąd podczas pobierania danych: ' + error.message;
