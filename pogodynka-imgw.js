@@ -197,8 +197,8 @@ async function fetchWarnings() {
 // Funkcja do wyświetlania ostrzeżeń
 function displayWarnings(dataArray) {
     const warning = dataArray.find(item => item.teryt.includes(warnTER));
-    const warningMessageElement = document.getElementById('warningMessage');
     if (warning) {
+        const warningMessageElement = document.getElementById('warningMessage');
         warningMessageElement.innerHTML = `
 <div class="container warning">
     <div class="header">
@@ -251,8 +251,8 @@ function displayWarnings(dataArray) {
 
 function displayHydroWarnings(dataArray) {
     const filteredWarning = dataArray.find(warning => warning.wojewodztwo === warnWOJ);
-    const warningMessageElement = document.getElementById('warningMessage');
     if (filteredWarning) {
+        const warningMessageElement = document.getElementById('warningMessage');
         const warningDetails = `
 <div class="container warning">
     <div class="header ">
@@ -287,8 +287,6 @@ function displayHydroWarnings(dataArray) {
     </div>
 </div>`;
         warningMessageElement.innerHTML += warningDetails;
-    } else {
-        warningMessageElement.innerHTML = ''; // Nie wyświetlaj nic, jeśli nie ma ostrzeżenia
     }
 }
 
