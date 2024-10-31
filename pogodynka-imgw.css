@@ -133,3 +133,7 @@ h1.warning {
 h1.white {
     color: #fff;
 }
+
+p {
+  text-align: center;
+}
