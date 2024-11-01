@@ -105,8 +105,7 @@
         <button onclick="showStation()">Pokaż</button>
     </div>
     <script type="module">
-        import { warnTER, warnWOJ } from "./kody-teryt.js";
-        console.log(warnTER, warnWOJ)
+        import { warnTERdata, warnWOJdata } from "./kody-teryt.js";
         async function fetchStations() {
             const stationSelectElement = document.getElementById('stationSelect');
             const metStationSelectElement = document.getElementById('metStationSelect');
