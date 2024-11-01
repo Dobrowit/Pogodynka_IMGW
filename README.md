@@ -1,4 +1,4 @@
-# Pogodynka IMGW
+## Wprowadzenie
 Pogoda IMGW na stronie internetowej z otwartych danych.
 
 Dane pochodzą z [otwartego źródła](https://danepubliczne.imgw.pl). Źródło znalezione w [publicznym katalogu](https://dane.gov.pl) (polecam).
