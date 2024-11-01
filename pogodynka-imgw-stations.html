@@ -554,6 +554,7 @@
 
             if (stationId || hydroStationId) {
                 window.location.href = `pogodynka-imgw.html?synopId=${stationId}&meteoId=${metStationId}&hydroId=${hydroStationId}&warnTER=${warnTERId}&warnWOJ=${warnWOJId}`;
+                console.log('pogodynka-imgw.html?synopId=${stationId}&meteoId=${metStationId}&hydroId=${hydroStationId}&warnTER=${warnTERId}&warnWOJ=${warnWOJId}')
             } else {
                 alert('Proszę wybrać przynajmniej jedną stację.');
             }
