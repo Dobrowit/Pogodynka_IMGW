@@ -209,7 +209,6 @@ function displayWarnings(dataArray) {
     const warning = dataArray.find(item => item.teryt.includes(warnTER));
     if (warning) {
         const powiat = warnTERdata.find(nazwa => nazwa.kod_teryt === warnTER);
-        console.log(powiat)
         const warningMessageElement = document.getElementById('warningMessage');
         warningMessageElement.innerHTML = `
 <div class="container warning">
