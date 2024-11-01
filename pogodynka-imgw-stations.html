@@ -84,6 +84,20 @@
             </select>
         </div>
         
+        <div class="select-container">
+            <label for="warnTER">Kod TERYT powiatu dla ostrzeżeń:</label>
+            <select id="warnTER">
+                <option value="">Wybierz TERYT...</option>
+            </select>
+        </div>
+        
+        <div class="select-container">
+            <label for="warnWOJ">Województwo dla ostrzeżeń:</label>
+            <select id="warnWOJ">
+                <option value="">Wybierz województwo...</option>
+            </select>
+        </div>
+
         <button onclick="showStation()">Pokaż</button>
     </div>
 
@@ -92,6 +106,8 @@
             const stationSelectElement = document.getElementById('stationSelect');
             const metStationSelectElement = document.getElementById('metStationSelect');
             const hydroStationSelectElement = document.getElementById('hydroStationSelect');
+            const warnTERelement = document.getElementById('warnTER');
+            const warnWOJelement = document.getElementById('warnWOJ');
             const loadingElement = document.getElementById('loading');
             const errorElement = document.getElementById('error');
         
@@ -100,6 +116,8 @@
             stationSelectElement.style.display = 'none';
             metStationSelectElement.style.display = 'none';
             hydroStationSelectElement.style.display = 'none';
+            warnTERelement.style.display = 'none';
+            warnWOJelement.style.display = 'none';
             errorElement.style.display = 'none';
             
             try {
@@ -123,11 +141,36 @@
                     throw new Error('Problem z połączeniem z serwerem dla stacji hydrologicznych');
                 }
                 const hydroData = await responseHydro.json();
+
+                // Kody TERYT
+                const warnTERdata = "[
+                        {
+                            "kod_teryt": "2204",
+                            "nazwa": "lęborski"
+                        },
+                        {
+                            "kod_teryt": "2211",
+                            "nazwa": "ustecki"
+                        }
+                ]"
+
+                // Województwa
+                const warnWOJdata = "[
+                        {
+                            "kod_teryt": "22",
+                            "nazwa": "pomorskie"
+                        },
+                        {
+                            "kod_teryt": "21",
+                            "nazwa": "zachodniopomorskie"
+                        }
+                ]"
         
                 // Sortowanie danych alfabetycznie
                 synData.sort((a, b) => a.stacja.localeCompare(b.stacja));
                 metData.sort((a, b) => a.nazwa_stacji.localeCompare(b.nazwa_stacji));
                 hydroData.sort((a, b) => a.stacja.localeCompare(b.stacja));
+                
 
                 // Dodanie stacji meteorologicznych do menu rozwijanego
                 synData.forEach(station => {
@@ -152,12 +195,30 @@
                     option.textContent = `${hydroStation.stacja} - ${hydroStation.rzeka} (id: ${hydroStation.id_stacji})`;
                     hydroStationSelectElement.appendChild(option);
                 });
-        
+
+                // Dodanie powiatów
+                warnTERdata.forEach(warnTER => {
+                    const option = document.createElement('option');
+                    option.value = warnTER.kod_teryt;
+                    option.textContent = `${warnTER.kod_teryt} - ${warnTER.nazwa})`;
+                    hydroStationSelectElement.appendChild(option);
+                });
+
+                // Dodanie woj.
+                warnWOJdata.forEach(warnWOJ => {
+                    const option = document.createElement('option');
+                    option.value = warnWOJ.nazwa;
+                    option.textContent = `${warnWOJ.kod_teryt} - ${warnWOJ.nazwa})`;
+                    hydroStationSelectElement.appendChild(option);
+                });
+                            
                 // Pokaż listy rozwijane
                 loadingElement.style.display = 'none';
                 stationSelectElement.style.display = 'block';
                 metStationSelectElement.style.display = 'block';
                 hydroStationSelectElement.style.display = 'block';
+                warnTERelement.style.display = 'block';
+                warnWOJelement.style.display = 'block';
             } catch (error) {
                 errorElement.textContent = 'Błąd podczas pobierania danych: ' + error.message;
                 errorElement.style.display = 'block';
@@ -169,6 +230,8 @@
             const stationId = document.getElementById('stationSelect').value;
             const metStationId = document.getElementById('metStationSelect').value;
             const hydroStationId = document.getElementById('hydroStationSelect').value;
+            const warnTERId = document.getElementById('warnWOJ').value;
+            const warnWOJId = document.getElementById('warnWOJ').value;
 
             if (stationId || hydroStationId) {
                 window.location.href = `pogodynka-imgw.html?synopId=${stationId}&meteoId=${metStationId}&hydroId=${hydroStationId}`;
