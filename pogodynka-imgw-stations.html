@@ -104,7 +104,7 @@
 
         <button onclick="showStation()">Pokaż</button>
     </div>
-
+    <script src="kody-teryt.js"></script>
     <script>
         async function fetchStations() {
             const stationSelectElement = document.getElementById('stationSelect');
@@ -145,8 +145,6 @@
                     throw new Error('Problem z połączeniem z serwerem dla stacji hydrologicznych');
                 }
                 const hydroData = await responseHydro.json();
-
-                import {warnTERdata, warnWOJdata} from './kody-teryt.js';
                         
                 // Sortowanie danych alfabetycznie
                 synData.sort((a, b) => a.stacja.localeCompare(b.stacja));
