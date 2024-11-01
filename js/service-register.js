@@ -10,18 +10,6 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (event) => {
-    // Zapobiegamy wyświetleniu domyślnego monitu
-    event.preventDefault();
-    // Zapisujemy event, aby móc go wywołać później
-    deferredPrompt = event;
-
-    // Wyświetl przycisk instalacji
-    showInstallButton();
-});
-
 function showInstallButton() {
     const installButton = document.getElementById('installButton');
     installButton.style.display = 'block';
@@ -44,7 +32,20 @@ function showInstallButton() {
     });
 }
 
-window.addEventListener('appinstalled', () => {
-    console.log('Aplikacja została zainstalowana');
-    document.getElementById('installButton').style.display = 'none';
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (event) => {
+    // Zapobiegamy wyświetleniu domyślnego monitu
+    event.preventDefault();
+    // Zapisujemy event, aby móc go wywołać później
+    deferredPrompt = event;
+
+    // Wyświetl przycisk instalacji
+    showInstallButton();
 });
+
+
+// window.addEventListener('appinstalled', () => {
+//     console.log('Aplikacja została zainstalowana');
+//     document.getElementById('installButton').style.display = 'none';
+// });
