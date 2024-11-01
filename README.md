@@ -7,7 +7,7 @@ Dane pochodzą z otwartego źródła - https://danepubliczne.imgw.pl
 
 ## Warianty skryptu
   - AIO - wszystko w jednym ale tylko dane synoptyczne
-  - wersja rozbudowane (wszelkie dostępne dane publiczne z IMGW) rozdzielony na html, css i js
+  - wersja rozbudowana rozdzielona na html, css i js
 
 ## Dostosowanie skryptu do własnych potrzeb:
   - domyślny id stacji można nadpisać zmienną podaną w url - np. ``/pogodynka-imgw-aio.html?station_id=12295``
