@@ -25,9 +25,8 @@ async function fetchData() {
         const [synopResponse, meteoResponse, hydroResponse, hydro2Response] = await Promise.all([
             fetch("https://danepubliczne.imgw.pl/api/data/synop"),
             fetch("https://danepubliczne.imgw.pl/api/data/meteo"),
-            fetch("https://danepubliczne.imgw.pl/api/data/hydro")
+            fetch("https://danepubliczne.imgw.pl/api/data/hydro"),
             fetch("https://danepubliczne.imgw.pl/api/data/hydro2")
-
         ]);
         const synopData = await synopResponse.json();
         const meteoData = await meteoResponse.json();
