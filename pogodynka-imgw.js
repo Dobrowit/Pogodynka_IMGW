@@ -214,8 +214,8 @@ function displayWarnings(dataArray) {
         warningMessageElement.innerHTML = `
 <div class="container warning">
     <div class="header">
-        <h1 class="title white">Ostrzeżenie meteorologiczne</h1>
-        <h1 class="title white">dla powiatu ${powiat.nazwa}</h1>
+        <h1 class="title white">Ostrzeżenie meteorologiczne<br>
+        powiat ${powiat.nazwa}</h1>
     </div>
     <div id="weatherData" class="weather-grid" style="display: grid;">
     <div class="weather-item">
