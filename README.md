@@ -1,9 +1,7 @@
 # Pogodynka IMGW
 Pogoda IMGW na stronie internetowej z otwartych danych.
 
-Dane pochodzą z otwartego źródła - https://danepubliczne.imgw.pl
-
-Źródło znalezione w publicznym katalogu (polecam) - https://dane.gov.pl
+Dane pochodzą z [otwartego źródła](https://danepubliczne.imgw.pl). Źródło znalezione w [publicznym katalogu](https://dane.gov.pl) (polecam).
 
 ## Warianty skryptu
   - AIO - wszystko w jednym ale tylko dane synoptyczne
@@ -25,19 +23,19 @@ UWAGA - nie można usuwać informacji o pochodzeniu danych - grozi to odpowiedzi
 **Danych publicznych nie można dowolnie używać - trzeba to robić z odpowiedzialnością, zdrowym rozsądkiem i w zgodzie z regulaminem dostawcy.**
 
 ## Demo
-  - DEMO (AIO) - https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-aio.html
-  - DEMO (ALL) - https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw.html
-  - LISTA STACJI - https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-stations.html
+  - DEMO (AIO) - [https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-aio.html](https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-aio.html)
+  - DEMO (ALL) - [https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw.html](https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw.html)
+  - LISTA STACJI - [https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-stations.html](https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-stations.html)
 
 ![obraz](https://github.com/user-attachments/assets/e984a3a2-8a33-4aee-b6da-afec2e78a3b9)
 
 ## API JSON użyte w projekcie
-  - https://danepubliczne.imgw.pl/api/data/synop
-  - https://danepubliczne.imgw.pl/api/data/meteo
-  - https://danepubliczne.imgw.pl/api/data/hydro
-  - https://danepubliczne.imgw.pl/api/data/hydro2
-  - https://danepubliczne.imgw.pl/api/data/warningsmeteo
-  - https://danepubliczne.imgw.pl/api/data/warningshydro
+  - [https://danepubliczne.imgw.pl/api/data/synop](https://danepubliczne.imgw.pl/api/data/synop)
+  - [https://danepubliczne.imgw.pl/api/data/meteo](https://danepubliczne.imgw.pl/api/data/meteo)
+  - [https://danepubliczne.imgw.pl/api/data/hydro](https://danepubliczne.imgw.pl/api/data/hydro)
+  - [https://danepubliczne.imgw.pl/api/data/hydro2](https://danepubliczne.imgw.pl/api/data/hydro2)
+  - [https://danepubliczne.imgw.pl/api/data/warningsmeteo](https://danepubliczne.imgw.pl/api/data/warningsmeteo)
+  - [https://danepubliczne.imgw.pl/api/data/warningshydro](https://danepubliczne.imgw.pl/api/data/warningshydro)
 
 ## Uwagi do API IMGW
 Dane udostępniane przez IMGW mają pewne niespójności, które trzeba uwzględnić:
@@ -51,7 +49,7 @@ Dane udostępniane przez IMGW mają pewne niespójności, które trzeba uwzględ
   - **Dane synoptyczne** – to specyficzny rodzaj danych meteorologicznych zebranych na potrzeby prognozowania pogody w krótkim okresie czasu (zazwyczaj do kilku dni). Są one zbierane w stałych godzinach na całym świecie przez stacje synoptyczne według ustalonych norm i standardów (np. co 6 godzin). Dane te są zwykle surowymi odczytami, a następnie są analizowane i interpretowane przez meteorologów do tworzenia prognoz pogody.
 
 Podsumowując:
-  - Dane synoptyczne to szczególne dane meteorologiczne zbierane w krótkich odstępach czasu i z określonych miejsc.
-  - Dane meteorologiczne to ogólny termin obejmujący wszystkie dane dotyczące pogody, a dane synoptyczne są ich częścią.
+  - **Dane synoptyczne** to szczególne dane meteorologiczne zbierane w krótkich odstępach czasu i z określonych miejsc.
+  - **Dane meteorologiczne** to ogólny termin obejmujący wszystkie dane dotyczące pogody, a dane synoptyczne są ich częścią.
 
 Dane synoptyczne nie są danymi uśrednionymi z dłuższego przedziału czasu, natomiast istnieją dane meteorologiczne o charakterze uśrednionym (np. dane klimatyczne).
