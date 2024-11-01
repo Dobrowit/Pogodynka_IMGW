@@ -14,6 +14,9 @@ const meteoId = urlParams.get('meteoId') || defaultMeteoId;
 const hydroId = urlParams.get('hydroId') || defaultHydroId;
 const warnTER = urlParams.get("warnTER") || defaultWarnTER;
 const warnWOJ = urlParams.get("warnWOJ") || defaultWarnWOJ;
+
+// Pobranie kodów TERYT
+import warnTERdata from "./kody-teryt.js";
     
 // Funkcja do pobierania danych z API
 async function fetchData() {
@@ -205,12 +208,13 @@ async function fetchWarnings() {
 function displayWarnings(dataArray) {
     const warning = dataArray.find(item => item.teryt.includes(warnTER));
     if (warning) {
+        const powiat = warnTERdata.find(nazwa => nazwa.kod_teryt === warnTER);
         const warningMessageElement = document.getElementById('warningMessage');
         warningMessageElement.innerHTML = `
 <div class="container warning">
     <div class="header">
         <h1 class="title white">Ostrzeżenie meteorologiczne</h1>
-        <h1 class="title white">dla powiatu z kodem TERYT ${warnTER}</h1>
+        <h1 class="title white">dla powiatu ${powiat}</h1>
     </div>
     <div id="weatherData" class="weather-grid" style="display: grid;">
     <div class="weather-item">
