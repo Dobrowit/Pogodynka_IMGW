@@ -8,7 +8,7 @@ Dane pochodzą z [otwartego źródła](https://danepubliczne.imgw.pl). Źródło
 ## Demo
   - DEMO (AIO) - [https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-aio.html](https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-aio.html)
   - DEMO (ALL) - [https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw.html](https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw.html)
-  - LISTA STACJI - [https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-stations.html](https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-stations.html)
+  - LISTA STACJI - [https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-stations.html](https://dobrowit.github.io/Pogodynka_IMGW/stations.html)
 
 ## Czym są dane synoptyczne i meteorlogiczne?
 

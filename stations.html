@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="stylesheet" href="css/stations.css">
+    <link rel="manifest" href="site.webmanifest">
+    <title>Lista stacji IMGW</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Stacje pomiarowe IMGW</h1>
+        <div id="error" class="error" style="display: none;"></div>
+        <div id="loading" class="loading" style="display: none;">Ładowanie danych...</div>
+        
+        <div class="select-container">
+            <label for="stationSelect">Wybierz stację synoptyczną:</label>
+            <select id="stationSelect">
+                <option value="">Wybierz stację...</option>
+            </select>
+        </div>
+
+        <div class="select-container">
+            <label for="metStationSelect">Wybierz stację meteorologiczną:</label>
+            <select id="metStationSelect">
+                <option value="">Wybierz stację...</option>
+            </select>
+        </div>
+        
+        <div class="select-container">
+            <label for="hydroStationSelect">Wybierz stację hydrologiczną:</label>
+            <select id="hydroStationSelect">
+                <option value="">Wybierz stację...</option>
+            </select>
+        </div>
+        <h1>Obszar dla ostrzeżeń</h1>
+        <div class="select-container">
+            <label for="warnTERSelect">Powiat:</label>
+            <select id="warnTERSelect">
+                <option value="">Wybierz TERYT powiatu...</option>
+            </select>
+        </div>
+        
+        <div class="select-container">
+            <label for="warnWOJSelect">Województwo:</label>
+            <select id="warnWOJSelect">
+                <option value="">Wybierz województwo...</option>
+            </select>
+        </div>
+
+        <button onclick="showStation()">Pokaż</button>
+    </div>
+    <script type="module" src="js/stations.js"></script>
+</body>
+</html>
