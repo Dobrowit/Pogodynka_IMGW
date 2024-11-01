@@ -16,7 +16,7 @@ const warnTER = urlParams.get("warnTER") || defaultWarnTER;
 const warnWOJ = urlParams.get("warnWOJ") || defaultWarnWOJ;
 
 // Pobranie kodów TERYT
-import warnTERdata from "./kody-teryt.js";
+import { warnTERdata } from "./kody-teryt.js";
     
 // Funkcja do pobierania danych z API
 async function fetchData() {
