@@ -21,26 +21,6 @@ async function fetchStations() {
     
     try {
         // Pobranie danych stacji synoptycznych
-//         const responseSyn = await fetch('https://danepubliczne.imgw.pl/api/data/synop');
-//         if (!responseSyn.ok) {
-//             throw new Error('Problem z połączeniem z serwerem dla stacji meteorologicznych');
-//         }
-//         const synData = await responseSyn.json();
-// 
-//         // Pobranie danych stacji meteorologicznych
-//         const responseMet = await fetch('https://danepubliczne.imgw.pl/api/data/meteo');
-//         if (!responseMet.ok) {
-//             throw new Error('Problem z połączeniem z serwerem dla stacji meteorologicznych');
-//         }
-//         const metData = await responseMet.json();
-// 
-//         // Pobranie danych stacji hydrologicznych
-//         const responseHydro = await fetch('https://danepubliczne.imgw.pl/api/data/hydro');
-//         if (!responseHydro.ok) {
-//             throw new Error('Problem z połączeniem z serwerem dla stacji hydrologicznych');
-//         }
-//         const hydroData = await responseHydro.json();
-
         const [synopResponse, meteoResponse, hydroResponse, hydro2Response] = await Promise.all([
             fetch("https://danepubliczne.imgw.pl/api/data/synop"),
             fetch("https://danepubliczne.imgw.pl/api/data/meteo"),
@@ -111,7 +91,7 @@ async function fetchStations() {
     }
 }
 
-function showStation() {
+export function showStation() {
     const stationId = document.getElementById('stationSelect').value;
     const metStationId = document.getElementById('metStationSelect').value;
     const hydroStationId = document.getElementById('hydroStationSelect').value;

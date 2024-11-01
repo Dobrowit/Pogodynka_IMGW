@@ -46,7 +46,10 @@
                 <option value="">Wybierz województwo...</option>
             </select>
         </div>
-        <script type="module" src="js/stations.js"></script>
+        <script type="module">
+            import { showStation } from './js/stations.js';
+            window.showStation = showStation;
+        </script>
         <button onclick="showStation()">Pokaż</button>
     </div>
 </body>
