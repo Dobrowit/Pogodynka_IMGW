@@ -519,7 +519,7 @@
                 warnTERdata.forEach(warnTER => {
                     const option = document.createElement('option');
                     option.value = warnTER.kod_teryt;
-                    option.textContent = `${warnTER.kod_teryt} - ${warnTER.nazwa}`;
+                    option.textContent = `${warnTER.nazwa} (teryt: ${warnTER.kod_teryt})`;
                     warnTERSelectElement.appendChild(option);
                 });
 
@@ -527,7 +527,7 @@
                 warnWOJdata.forEach(warnWOJ => {
                     const option = document.createElement('option');
                     option.value = warnWOJ.nazwa.toLowerCase();
-                    option.textContent = `${warnWOJ.kod_teryt} - ${warnWOJ.nazwa.toLowerCase()}`;
+                    option.textContent = `${warnWOJ.nazwa.toLowerCase()} (teryt: ${warnWOJ.kod_teryt})`;
                     warnWOJSelectElement.appendChild(option);
                 });
                             
@@ -553,7 +553,7 @@
             const warnWOJId = document.getElementById('warnWOJSelect').value;
 
             if (stationId || hydroStationId) {
-                window.location.href = `pogodynka-imgw.html?synopId=${stationId}&meteoId=${metStationId}&hydroId=${hydroStationId}&warnTERId=${warnTER}&warnWOJId=${warnWOJ}`;
+                window.location.href = `pogodynka-imgw.html?synopId=${stationId}&meteoId=${metStationId}&hydroId=${hydroStationId}&warnTER=${warnTERId}&warnWOJ=${warnWOJId}`;
             } else {
                 alert('Proszę wybrać przynajmniej jedną stację.');
             }
