@@ -63,7 +63,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Lista stacji pomiarowych IMGW</h1>
+        <h1>Stacje pomiarowe IMGW</h1>
         <div id="error" class="error" style="display: none;"></div>
         <div id="loading" class="loading" style="display: none;">Ładowanie danych...</div>
         
@@ -87,16 +87,16 @@
                 <option value="">Wybierz stację...</option>
             </select>
         </div>
-        
+        <h1>Obszar dla ostrzeżeń</h1>
         <div class="select-container">
-            <label for="warnTERSelect">Kod TERYT powiatu dla ostrzeżeń:</label>
+            <label for="warnTERSelect">Powiat:</label>
             <select id="warnTERSelect">
-                <option value="">Wybierz TERYT...</option>
+                <option value="">Wybierz TERYT powiatu...</option>
             </select>
         </div>
         
         <div class="select-container">
-            <label for="warnWOJSelect">Województwo dla ostrzeżeń:</label>
+            <label for="warnWOJSelect">Województwo:</label>
             <select id="warnWOJSelect">
                 <option value="">Wybierz województwo...</option>
             </select>
@@ -489,8 +489,7 @@
                 synData.sort((a, b) => a.stacja.localeCompare(b.stacja));
                 metData.sort((a, b) => a.nazwa_stacji.localeCompare(b.nazwa_stacji));
                 hydroData.sort((a, b) => a.stacja.localeCompare(b.stacja));
-                //warnTERData.sort((a, b) => a.nazwa.localeCompare(b.nazwa));
-                //warnWOJData.sort((a, b) => a.nazwa.localeCompare(b.nazwa));
+                warnTERdata.sort((a, b) => a.nazwa.localeCompare(b.nazwa));
 
                 // Dodanie stacji meteorologicznych do menu rozwijanego
                 synData.forEach(station => {
