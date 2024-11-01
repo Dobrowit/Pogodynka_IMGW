@@ -197,7 +197,7 @@ async function fetchWarnings() {
     }
 }
 
-// Funkcja do wyświetlania ostrzeżeń
+// Funkcje do wyświetlania ostrzeżeń
 function displayWarnings(dataArray) {
     const warning = dataArray.find(item => item.teryt.includes(warnTER));
     if (warning) {
@@ -206,6 +206,7 @@ function displayWarnings(dataArray) {
 <div class="container warning">
     <div class="header">
         <h1 class="title white">Ostrzeżenie meteorologiczne</h1>
+        <h1 class="title white">dla powiatu z kodem TERYT ${warnTER}</h1>
     </div>
     <div id="weatherData" class="weather-grid" style="display: grid;">
     <div class="weather-item">
