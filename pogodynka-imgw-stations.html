@@ -104,10 +104,9 @@
 
         <button onclick="showStation()">Pokaż</button>
     </div>
-    <script type="module" src="kody-teryt.js"></script>
     <script>
         async function fetchStations() {
-            import {warnTER, warnWOJ} from './kody-teryt.js'
+            const { warnTER, warnWOJ } = await import('./kody-teryt.js');
             const stationSelectElement = document.getElementById('stationSelect');
             const metStationSelectElement = document.getElementById('metStationSelect');
             const hydroStationSelectElement = document.getElementById('hydroStationSelect');
