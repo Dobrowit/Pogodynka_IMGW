@@ -1,4 +1,6 @@
+// Załadowanie kodów TERYT
 import { warnTERdata, warnWOJdata } from "./kody-teryt.js";
+
 async function fetchStations() {
     const stationSelectElement = document.getElementById('stationSelect');
     const metStationSelectElement = document.getElementById('metStationSelect');
@@ -19,26 +21,36 @@ async function fetchStations() {
     
     try {
         // Pobranie danych stacji synoptycznych
-        const responseSyn = await fetch('https://danepubliczne.imgw.pl/api/data/synop');
-        if (!responseSyn.ok) {
-            throw new Error('Problem z połączeniem z serwerem dla stacji meteorologicznych');
-        }
-        const synData = await responseSyn.json();
+//         const responseSyn = await fetch('https://danepubliczne.imgw.pl/api/data/synop');
+//         if (!responseSyn.ok) {
+//             throw new Error('Problem z połączeniem z serwerem dla stacji meteorologicznych');
+//         }
+//         const synData = await responseSyn.json();
+// 
+//         // Pobranie danych stacji meteorologicznych
+//         const responseMet = await fetch('https://danepubliczne.imgw.pl/api/data/meteo');
+//         if (!responseMet.ok) {
+//             throw new Error('Problem z połączeniem z serwerem dla stacji meteorologicznych');
+//         }
+//         const metData = await responseMet.json();
+// 
+//         // Pobranie danych stacji hydrologicznych
+//         const responseHydro = await fetch('https://danepubliczne.imgw.pl/api/data/hydro');
+//         if (!responseHydro.ok) {
+//             throw new Error('Problem z połączeniem z serwerem dla stacji hydrologicznych');
+//         }
+//         const hydroData = await responseHydro.json();
 
-        // Pobranie danych stacji meteorologicznych
-        const responseMet = await fetch('https://danepubliczne.imgw.pl/api/data/meteo');
-        if (!responseMet.ok) {
-            throw new Error('Problem z połączeniem z serwerem dla stacji meteorologicznych');
-        }
-        const metData = await responseMet.json();
+        const [synopResponse, meteoResponse, hydroResponse, hydro2Response] = await Promise.all([
+            fetch("https://danepubliczne.imgw.pl/api/data/synop"),
+            fetch("https://danepubliczne.imgw.pl/api/data/meteo"),
+            fetch("https://danepubliczne.imgw.pl/api/data/hydro")
+        ]);
 
-        // Pobranie danych stacji hydrologicznych
-        const responseHydro = await fetch('https://danepubliczne.imgw.pl/api/data/hydro');
-        if (!responseHydro.ok) {
-            throw new Error('Problem z połączeniem z serwerem dla stacji hydrologicznych');
-        }
-        const hydroData = await responseHydro.json();
-                
+        const synData = await synopResponse.json();
+        const metData = await meteoResponse.json();
+        const hydroData = await hydroResponse.json();
+        
         // Sortowanie danych alfabetycznie
         synData.sort((a, b) => a.stacja.localeCompare(b.stacja));
         metData.sort((a, b) => a.nazwa_stacji.localeCompare(b.nazwa_stacji));
