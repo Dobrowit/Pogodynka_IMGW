@@ -106,6 +106,7 @@
     </div>
     <script>
         const { warnTER, warnWOJ } = import('./kody-teryt.js');
+        console.log(warnTER, warnWOJ)
         async function fetchStations() {
             const stationSelectElement = document.getElementById('stationSelect');
             const metStationSelectElement = document.getElementById('metStationSelect');
