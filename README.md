@@ -9,6 +9,8 @@ Dane pochodzą z otwartego źródła - https://danepubliczne.imgw.pl
   - AIO - wszystko w jednym ale tylko dane synoptyczne
   - wersja rozbudowana rozdzielona na html, css i js
 
+Wersja rozbudowana pokazuje ostrzeżenia dla wybranego obszaru.
+
 ## Dostosowanie skryptu do własnych potrzeb:
   - domyślny id stacji można nadpisać zmienną podaną w url - np. ``/pogodynka-imgw-aio.html?station_id=12295``
   - skrypt przyjmuje następujące zmienne przez URL: ``synopId``, ``meteoId``, ``hydroId`` - odpowiednio dla danych: synoptycznych, meteorologicznych, hydrologicznych (nie dotyczy skryptu AIO - ten tylko przyjmuje ``station_id`` z kodem stacji synoptycznej)
