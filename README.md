@@ -11,7 +11,7 @@ Dane pochodzą z otwartego źródła - https://danepubliczne.imgw.pl
 
 Wersja rozbudowana pokazuje ostrzeżenia dla wybranego obszaru.
 
-## Dostosowanie skryptu do własnych potrzeb:
+## Dostosowanie skryptu do własnych potrzeb
   - domyślny id stacji można nadpisać zmienną podaną w url - np. ``/pogodynka-imgw-aio.html?station_id=12295``
   - skrypt przyjmuje następujące zmienne przez URL: ``synopId``, ``meteoId``, ``hydroId`` - odpowiednio dla danych: synoptycznych, meteorologicznych, hydrologicznych (nie dotyczy skryptu AIO - ten tylko przyjmuje ``station_id`` z kodem stacji synoptycznej)
   - identyfikatory można wygenerować ze skryptu [pogodynka-imgw-stations.html](https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-stations.html)
