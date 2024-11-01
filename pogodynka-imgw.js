@@ -129,7 +129,7 @@ function displayData(synopData, meteoData, hydroData, hydro2Data) {
             <div class="weather-value">${meteoData.wiatr_poryw_10min} m/s</div>
             <div class="weather-date">${meteoData.wiatr_poryw_10min_data}</div>
         </div>
-        ${!!meteoData.opad_10min && meteoData.opad_10min !== 'null' ? `<div class="weather-item">
+        ${meteoData.opad_10min && meteoData.opad_10min !== 'null' ? `<div class="weather-item">
             <div class="weather-label">Opad 10 min:</div>
             <div class="weather-value">${meteoData.opad_10min} mm</div>
             <div class="weather-date">${meteoData.opad_10min_data}</div>
@@ -137,6 +137,7 @@ function displayData(synopData, meteoData, hydroData, hydro2Data) {
     </div>
 </div>`;
             console.log("kod stacji meteorlogicznej:", meteoData.kod_stacji)
+            console.log(meteoData.opad_10min)
     } else {
         meteoElement.innerHTML = `<h2>Dane METEO</h2><p>Brak danych dla podanego kodu stacji.</p>`;
     }
