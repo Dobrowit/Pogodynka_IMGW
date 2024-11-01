@@ -38,3 +38,20 @@ UWAGA - nie można usuwać informacji o pochodzeniu danych - grozi to odpowiedzi
   - https://danepubliczne.imgw.pl/api/data/hydro2
   - https://danepubliczne.imgw.pl/api/data/warningsmeteo
   - https://danepubliczne.imgw.pl/api/data/warningshydro
+
+## Uwagi do API IMGW
+Dane udostępniane przez IMGW mają pewne niespójności, które trzeba uwzględnić:
+  - API hydro podaje nieaktualne stany wody (dobrze że jest pole z datą) dlatego stan wody należy pobierać z API hydro2 i łączyć po Id stacji (uwaga rózne nazwy tych pól)
+  - w API hydro pole 'rzeka' nie zawsze oznacza rzekę; w stacjach nadmorskich często jest to Bałtyk (lub kanał portowy... nazwany tak samo); wg mnie bardziej właściwa nazwa dla tego pola to zbiornik_wodny lub akwen_wodny ale rozumiem, że padło na termin rzeka bo te przeważają
+  - w API meteo pola wiatr_poryw_10min, opad_10min i powiązane z nimi znaczniki czasu wydają się być martwe
+
+## Czym są dane synoptyczne i meteorlogiczne?
+
+  - **Dane meteorologiczne** – jest to ogólny termin obejmujący wszelkie informacje dotyczące pogody, takie jak temperatura, wilgotność, prędkość wiatru, opady itp. Dane meteorologiczne mogą pochodzić z różnych źródeł, takich jak stacje meteorologiczne, satelity, balony meteorologiczne czy radary. Mogą być surowe lub przetworzone.
+  - **Dane synoptyczne** – to specyficzny rodzaj danych meteorologicznych zebranych na potrzeby prognozowania pogody w krótkim okresie czasu (zazwyczaj do kilku dni). Są one zbierane w stałych godzinach na całym świecie przez stacje synoptyczne według ustalonych norm i standardów (np. co 6 godzin). Dane te są zwykle surowymi odczytami, a następnie są analizowane i interpretowane przez meteorologów do tworzenia prognoz pogody.
+
+Podsumowując:
+  - Dane synoptyczne to szczególne dane meteorologiczne zbierane w krótkich odstępach czasu i z określonych miejsc.
+  - Dane meteorologiczne to ogólny termin obejmujący wszystkie dane dotyczące pogody, a dane synoptyczne są ich częścią.
+
+Dane synoptyczne nie są danymi uśrednionymi z dłuższego przedziału czasu, natomiast istnieją dane meteorologiczne o charakterze uśrednionym (np. dane klimatyczne).
