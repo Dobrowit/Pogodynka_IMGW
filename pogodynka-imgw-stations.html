@@ -205,16 +205,18 @@
                 warnTERdata.forEach(warnTER => {
                     const option = document.createElement('option');
                     option.value = warnTER.kod_teryt;
-                    option.textContent = `${warnTER.kod_teryt} - ${warnTER.nazwa})`;
-                    hydroStationSelectElement.appendChild(option);
+                    option.textContent = `${warnTER.kod_teryt} - ${warnTER.nazwa}`;
+                    console.log(`${warnTER.kod_teryt} - ${warnTER.nazwa}`)
+                    warnTERSelectElement.appendChild(option);
                 });
 
                 // Dodanie woj.
                 warnWOJdata.forEach(warnWOJ => {
                     const option = document.createElement('option');
                     option.value = warnWOJ.nazwa;
-                    option.textContent = `${warnWOJ.kod_teryt} - ${warnWOJ.nazwa})`;
-                    hydroStationSelectElement.appendChild(option);
+                    option.textContent = `${warnWOJ.kod_teryt} - ${warnWOJ.nazwa}`;
+                    console.log(`${warnWOJ.kod_teryt} - ${warnWOJ.nazwa}`)
+                    warnWOJSelectElement.appendChild(option);
                 });
                             
                 // Pokaż listy rozwijane
