@@ -31,7 +31,7 @@ async function fetchData() {
         const synopData = await synopResponse.json();
         const meteoData = await meteoResponse.json();
         const hydroData = await hydroResponse.json();
-        const hydro2Data = await hydroResponse.json();
+        const hydro2Data = await hydro2Response.json();
 
         // const synopResponse = await fetch("https://danepubliczne.imgw.pl/api/data/synop");
         // const synopData = await synopResponse.json();
