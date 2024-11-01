@@ -124,14 +124,14 @@ function displayData(synopData, meteoData, hydroData, hydro2Data) {
             <div class="weather-value">${meteoData.wilgotnosc_wzgledna} %</div>
             <div class="weather-date">${meteoData.wilgotnosc_wzgledna_data}</div>
         </div>
-        ${meteoData.wiatr_poryw_10min = null ? `
+        ${meteoData.wiatr_poryw_10min !== null ? `
         <div class="weather-item">
             <div class="weather-label">Porywy wiatu (10 min):</div>
             <div class="weather-value">${meteoData.wiatr_poryw_10min} m/s</div>
             <div class="weather-date">${meteoData.wiatr_poryw_10min_data}</div>
         </div>
         ` : ''}
-        ${meteoData.opad_10min = null ? `
+        ${meteoData.opad_10min !== null ? `
         <div class="weather-item">
             <div class="weather-label">Opad 10 min:</div>
             <div class="weather-value">${meteoData.opad_10min} mm</div>
