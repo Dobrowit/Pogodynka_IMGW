@@ -527,8 +527,8 @@
                 // Dodanie woj.
                 warnWOJdata.forEach(warnWOJ => {
                     const option = document.createElement('option');
-                    option.value = warnWOJ.nazwa.lower();
-                    option.textContent = `${warnWOJ.kod_teryt} - ${warnWOJ.nazwa.lower()}`;
+                    option.value = warnWOJ.nazwa.toLowerCase();
+                    option.textContent = `${warnWOJ.kod_teryt} - ${warnWOJ.nazwa.toLowerCase()}`;
                     warnWOJSelectElement.appendChild(option);
                 });
                             
