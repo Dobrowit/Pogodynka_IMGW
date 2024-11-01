@@ -143,7 +143,7 @@
                 const hydroData = await responseHydro.json();
 
                 // Kody TERYT
-                const warnTERdata = "[
+                const warnTERdata = '[
                         {
                             "kod_teryt": "2204",
                             "nazwa": "lęborski"
@@ -152,10 +152,10 @@
                             "kod_teryt": "2211",
                             "nazwa": "ustecki"
                         }
-                ]"
+                ]'
 
                 // Województwa
-                const warnWOJdata = "[
+                const warnWOJdata = '[
                         {
                             "kod_teryt": "22",
                             "nazwa": "pomorskie"
@@ -164,7 +164,7 @@
                             "kod_teryt": "21",
                             "nazwa": "zachodniopomorskie"
                         }
-                ]"
+                ]'
         
                 // Sortowanie danych alfabetycznie
                 synData.sort((a, b) => a.stacja.localeCompare(b.stacja));
