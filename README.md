@@ -26,7 +26,7 @@ W repozytorium umieszczono dwa warianty skryptu:
   - AIO - wszystko w jednym ale tylko dane synoptyczne
   - wersja rozbudowane (wszelkie dostępne dane publiczne z IMGW) rozdzielony na html, css i js
 
-DEMO (AIO)- https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-aio.html
+DEMO (AIO) - https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-aio.html
 
 DEMO (ALL) - https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw.html
 
