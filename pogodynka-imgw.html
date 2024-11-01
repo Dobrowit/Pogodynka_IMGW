@@ -14,6 +14,7 @@
     <script src="js/service-register.js"></script>
 
 <script>
+deferredPrompt.prompt();
 function showInstallButton() {
     const installButton = document.getElementById('installButton');
     installButton.style.display = 'block';
@@ -49,10 +50,10 @@ window.addEventListener('beforeinstallprompt', (event) => {
 });
 
 
-window.addEventListener('appinstalled', () => {
-    console.log('Aplikacja została zainstalowana');
-    document.getElementById('installButton').style.display = 'none';
-});
+<!-- window.addEventListener('appinstalled', () => { -->
+<!--     console.log('Aplikacja została zainstalowana'); -->
+<!--     document.getElementById('installButton').style.display = 'none'; -->
+<!-- }); -->
 </script>
 
 
