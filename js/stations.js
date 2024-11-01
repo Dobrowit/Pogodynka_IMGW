@@ -21,7 +21,7 @@ async function fetchStations() {
     
     try {
         // Pobranie danych stacji synoptycznych
-        const [synopResponse, meteoResponse, hydroResponse, hydro2Response] = await Promise.all([
+        const [synopResponse, meteoResponse, hydroResponse] = await Promise.all([
             fetch("https://danepubliczne.imgw.pl/api/data/synop"),
             fetch("https://danepubliczne.imgw.pl/api/data/meteo"),
             fetch("https://danepubliczne.imgw.pl/api/data/hydro")

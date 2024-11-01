@@ -22,14 +22,27 @@ import { warnTERdata } from "./kody-teryt.js";
 async function fetchData() {
     console.log("Załadunek danych...");
     try {
-        const synopResponse = await fetch("https://danepubliczne.imgw.pl/api/data/synop");
+        const [synopResponse, meteoResponse, hydroResponse, hydro2Response] = await Promise.all([
+            fetch("https://danepubliczne.imgw.pl/api/data/synop"),
+            fetch("https://danepubliczne.imgw.pl/api/data/meteo"),
+            fetch("https://danepubliczne.imgw.pl/api/data/hydro")
+            fetch("https://danepubliczne.imgw.pl/api/data/hydro2")
+
+        ]);
         const synopData = await synopResponse.json();
-        const meteoResponse = await fetch("https://danepubliczne.imgw.pl/api/data/meteo");
         const meteoData = await meteoResponse.json();
-        const hydroResponse = await fetch("https://danepubliczne.imgw.pl/api/data/hydro");
         const hydroData = await hydroResponse.json();
-        const hydro2Response = await fetch("https://danepubliczne.imgw.pl/api/data/hydro2");
-        const hydro2Data = await hydro2Response.json();
+        const hydro2Data = await hydroResponse.json();
+
+        // const synopResponse = await fetch("https://danepubliczne.imgw.pl/api/data/synop");
+        // const synopData = await synopResponse.json();
+        // const meteoResponse = await fetch("https://danepubliczne.imgw.pl/api/data/meteo");
+        // const meteoData = await meteoResponse.json();
+        // const hydroResponse = await fetch("https://danepubliczne.imgw.pl/api/data/hydro");
+        // const hydroData = await hydroResponse.json();
+        // const hydro2Response = await fetch("https://danepubliczne.imgw.pl/api/data/hydro2");
+        // const hydro2Data = await hydro2Response.json();
+        
         const selectedSynop = synopData.find(station => station.id_stacji === synopId);
         const selectedMeteo = meteoData.find(station => station.kod_stacji === meteoId);
         const selectedHydro = hydroData.find(station => station.id_stacji === hydroId);
