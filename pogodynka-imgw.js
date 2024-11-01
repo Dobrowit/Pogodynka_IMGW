@@ -118,19 +118,22 @@ function displayData(synopData, meteoData, hydroData, hydro2Data) {
             <div class="weather-label">Maksymalna prędkość wiatru:</div>
             <div class="weather-value">${meteoData.wiatr_predkosc_maksymalna} m/s</div>
             <div class="weather-date">${meteoData.wiatr_predkosc_maksymalna_data}</div>
-        </div>         <div class="weather-item">
+        </div>
+        <div class="weather-item">
             <div class="weather-label">Wilgotność względna:</div>
             <div class="weather-value">${meteoData.wilgotnosc_wzgledna} %</div>
             <div class="weather-date">${meteoData.wilgotnosc_wzgledna_data}</div>
-        </div>         <div class="weather-item">
+        </div>
+        <div class="weather-item">
             <div class="weather-label">Porywy wiatu (10 min):</div>
             <div class="weather-value">${meteoData.wiatr_poryw_10min} m/s</div>
             <div class="weather-date">${meteoData.wiatr_poryw_10min_data}</div>
-        </div>         <div class="weather-item">
+        </div>
+        ${meteoData.opad_10min !== null ? `<div class="weather-item">
             <div class="weather-label">Opad 10 min:</div>
             <div class="weather-value">${meteoData.opad_10min} mm</div>
             <div class="weather-date">${meteoData.opad_10min_data}</div>
-        </div>
+        </div>` : ''}
     </div>
 </div>`;
             console.log("kod stacji meteorlogicznej:", meteoData.kod_stacji)
