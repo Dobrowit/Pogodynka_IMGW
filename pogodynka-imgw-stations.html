@@ -85,15 +85,15 @@
         </div>
         
         <div class="select-container">
-            <label for="warnTER">Kod TERYT powiatu dla ostrzeżeń:</label>
-            <select id="warnTER">
+            <label for="warnTERSelect">Kod TERYT powiatu dla ostrzeżeń:</label>
+            <select id="warnTERSelect">
                 <option value="">Wybierz TERYT...</option>
             </select>
         </div>
         
         <div class="select-container">
-            <label for="warnWOJ">Województwo dla ostrzeżeń:</label>
-            <select id="warnWOJ">
+            <label for="warnWOJSelect">Województwo dla ostrzeżeń:</label>
+            <select id="warnWOJSelect">
                 <option value="">Wybierz województwo...</option>
             </select>
         </div>
@@ -106,8 +106,8 @@
             const stationSelectElement = document.getElementById('stationSelect');
             const metStationSelectElement = document.getElementById('metStationSelect');
             const hydroStationSelectElement = document.getElementById('hydroStationSelect');
-            const warnTERelement = document.getElementById('warnTER');
-            const warnWOJelement = document.getElementById('warnWOJ');
+            const warnTERelement = document.getElementById('warnTERSelect');
+            const warnWOJelement = document.getElementById('warnWOJSelect');
             const loadingElement = document.getElementById('loading');
             const errorElement = document.getElementById('error');
         
@@ -116,8 +116,8 @@
             stationSelectElement.style.display = 'none';
             metStationSelectElement.style.display = 'none';
             hydroStationSelectElement.style.display = 'none';
-            warnTERelement.style.display = 'none';
-            warnWOJelement.style.display = 'none';
+            warnTERSelectElement.style.display = 'none';
+            warnWOJSelectElement.style.display = 'none';
             errorElement.style.display = 'none';
             
             try {
@@ -218,8 +218,8 @@
                 stationSelectElement.style.display = 'block';
                 metStationSelectElement.style.display = 'block';
                 hydroStationSelectElement.style.display = 'block';
-                warnTERelement.style.display = 'block';
-                warnWOJelement.style.display = 'block';
+                warnTERSelectElement.style.display = 'block';
+                warnWOJSelectElement.style.display = 'block';
             } catch (error) {
                 errorElement.textContent = 'Błąd podczas pobierania danych: ' + error.message;
                 errorElement.style.display = 'block';
@@ -231,8 +231,8 @@
             const stationId = document.getElementById('stationSelect').value;
             const metStationId = document.getElementById('metStationSelect').value;
             const hydroStationId = document.getElementById('hydroStationSelect').value;
-            const warnTERId = document.getElementById('warnWOJ').value;
-            const warnWOJId = document.getElementById('warnWOJ').value;
+            const warnTERId = document.getElementById('warnWOJSelect').value;
+            const warnWOJId = document.getElementById('warnWOJSelect').value;
 
             if (stationId || hydroStationId) {
                 window.location.href = `pogodynka-imgw.html?synopId=${stationId}&meteoId=${metStationId}&hydroId=${hydroStationId}`;
