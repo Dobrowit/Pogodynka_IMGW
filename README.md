@@ -15,7 +15,7 @@ API JSON użyte w projekcie:
 
 Aby dostosować skrypt do własnych potrzeb:
   - domyślny id stacji można nadpisać zmienną podaną w url - np. ``/pogodynka-imgw-aio.html?station_id=12295``
-  - skrypt przyjmuje następujące zmienne przez URL: ``synopId``, ``meteoId``, ``hydroId`` - odpowiednio dla danych: synoptycznych, meteorologicznych, hydrologicznych (nie dotyczy skryptu AIO - ten tylko przyjmuje station_id z kodem stacji synoptycznej)
+  - skrypt przyjmuje następujące zmienne przez URL: ``synopId``, ``meteoId``, ``hydroId`` - odpowiednio dla danych: synoptycznych, meteorologicznych, hydrologicznych (nie dotyczy skryptu AIO - ten tylko przyjmuje ``station_id`` z kodem stacji synoptycznej)
   - identyfikatory można sobie wygenerować ze skryptu [pogodynka-imgw-stations.html](https://dobrowit.github.io/Pogodynka_IMGW/pogodynka-imgw-stations.html)
   - dodatkowo można podać ``warnWOJ`` i ``warnTER`` - nazwę województwa i [TERYT](https://eteryt.stat.gov.pl/eTeryt/rejestr_teryt/udostepnianie_danych/baza_teryt/baza_teryt.aspx?contrast=default) powiatu (4 cyfry) dla ostrzeżeń hydrologicznych i meteorologicznych
   - w kodzie na początku te zmienne są zahardkodowane w stałych, więc jeśli nie poda się Id to użyte będą domyślne
