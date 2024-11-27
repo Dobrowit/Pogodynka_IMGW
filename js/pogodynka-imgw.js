@@ -181,7 +181,12 @@ function displayData(synopData, meteoData, hydroData, hydro2Data) {
             <div class="weather-label">Stan wody:</div>
             <div class="weather-value">${hydro2Data.stan} cm</div>
             <div class="weather-date">${hydro2Data.stan_data}</div>
+            <a href="https://hydro.imgw.pl/#/station/hydro/154170100?h=73">Historia stanów</a>
         </div>
+        <div class="weather-item">
+            <div class="weather-value"><a href="https://hydro.imgw.pl/#/station/hydro/154170100?h=73">Historia stanów</a></div>
+        </div>
+
     </div>
 </div>`;
             console.log("id stacji hydrologicznej(2):", hydroData.id_stacji)
